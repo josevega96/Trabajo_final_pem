@@ -13,15 +13,16 @@ struct abc {
 
 typedef struct abc ABC;
 
-ABC letrasm[2];
+ABC letrasm[6];
 
  void guarda_letra(){
 
  }
 
+int x=150;
+int palabral[6];
 
-void circulos(){
-  int x=150;
+void circulos(int xt,int num){
   int y=200,k,j;
   int seg =20;
   int radio=15;
@@ -31,7 +32,7 @@ void circulos(){
   {
   for ( k = 8; k>= 0; k--)
   {
-    if (letrasm[0].letra[j][k]==1)
+    if (letrasm[palabral[num]].letra[j][k]==1)
     {
       glColor3f(255,0,0);
     }
@@ -45,7 +46,7 @@ void circulos(){
     x=x+30;  
     glEnd();
   }
-  x=150;
+  x=xt;
   y=y+30;
   }
   
@@ -64,12 +65,17 @@ void cuadros(){
 	 glClearColor(1.0,1.0,1.0,0.0);    
 	 glMatrixMode(GL_PROJECTION);    
 	 glLoadIdentity();    
-	 gluOrtho2D(0,640,0,480);}
+	 gluOrtho2D(0,1920,0,1080);}
 	 
 void dibuja(void) {
+  int i,xt=150;
   const GLubyte color[3]={0,255,0};
 	glClear(GL_COLOR_BUFFER_BIT);
-  circulos();
+  for ( i = 0; i < 6; i++)
+  {
+   circulos(xt,i);
+   xt=x+30*8; 
+  }
 	glFlush(); }
 
  int convierte(char palabra){
@@ -94,7 +100,6 @@ int main(int argc, char** argv)
 {	
 	int i,j,k,l;
   char palabra[6];
-  int palabral[6];
 	FILE *fp;
 	fp=fopen("letras.txt","r");
 	  if(fp == NULL) 
@@ -151,7 +156,7 @@ printf("\n");
 
 glutInit(&argc, argv);
 glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-glutInitWindowSize(640,480);    
+glutInitWindowSize(1920,1080);    
 glutInitWindowPosition(100, 150);    
 glutCreateWindow("Palabra");
 glutReshapeFunc(ajusta);
