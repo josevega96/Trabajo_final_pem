@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "shell: gcc build active file",
+            "command": "/bin/gcc",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-lglut",
+                "-lGLU",
+                "-lGL"
+            ],
+            "options": {
+                "cwd": "/bin"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "gcc build active file",
+            "command": "/sbin/gcc",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-lm",
+                "-lglut",
+                "-lGLU",
+                "-lGL"
+            ],
+            "options": {
+                "cwd": "/sbin"
+            }
+        }
+    ]
+}
