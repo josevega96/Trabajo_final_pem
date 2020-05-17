@@ -6,15 +6,27 @@
 int pos_x;
 int pos_y;
 
-struct abc {
-	 char palabra [6];
-	 char letra [8][8];
+struct mi_letra {
+	 char letra;
+	 GLboolean mat [8][8];
 	 GLfloat rgb[3];
 	 };
 
+typedef struct mi_letra LETRA;
+
+LETRA letrasm[6];
+
+struct abc
+{
+  int letra_g [8][8];
+};
+
 typedef struct abc ABC;
 
-ABC letrasm[6];
+ABC abc_letras[24];
+
+
+
 
  void guarda_letra(){
 
@@ -33,9 +45,9 @@ void circulos(int xt,int num){
   {
   for ( k = 8; k>= 0; k--)
   {
-    if (letrasm[palabral[num]].letra[j][k]==1)
+    if (letrasm[num].mat[j][k]==1)
     {
-      glColor3f(letrasm[palabral[num]].rgb[0],letrasm[palabral[num]].rgb[1],letrasm[palabral[num]].rgb[2]);
+      glColor3f(letrasm[num].rgb[0],letrasm[num].rgb[1],letrasm[num].rgb[2]);
     }
     else{
       glColor3f(0,0,0);
@@ -50,8 +62,6 @@ void circulos(int xt,int num){
   x=xt;
   y=y+30;
   }
-  
-  
  }
 void dibuja(void) {
   int i,xt=150;
@@ -113,8 +123,9 @@ void cuadros(){
 	 
 
 
- int convierte(char palabra){
+ void convierte(char palabra,int num){
      int conversion;
+     int i,j;
      switch (palabra)
      {
      case 'A':
@@ -127,7 +138,28 @@ void cuadros(){
          break;
      }
 
-return conversion;
+  letrasm[num].letra=palabra;
+  for (i = 0; i < 8; i++)
+    {
+      for (j = 0; j < 8; j++)
+     {
+        if (abc_letras[conversion].letra_g[i][j]==1)
+        {
+         letrasm[num].mat[i][j]=GL_TRUE;
+        }
+        else{
+         letrasm[num].mat[i][j]=GL_FALSE;
+        }
+
+        
+      }
+      
+  }
+
+  letrasm[num].rgb[0]=255;
+  letrasm[num].rgb[1]=0;
+  letrasm[num].rgb[2]=0;
+
 
  }
  
@@ -153,7 +185,7 @@ while (!feof (fp)){
       {
           for ( k = 0; k < 8; k++)
           {
-            letrasm[l].letra[j][k]=i;
+            abc_letras[l].letra_g[j][k]=i;
             fscanf (fp, "%d", &i);
           }
         }
@@ -167,9 +199,9 @@ fclose(fp);
 printf("Introduce una plabara \n");
 scanf("%s",palabra);
 
-for (i = 0; i < 6; i++)
+for ( i = 0; i < 6; i++)
 {
-    palabral[i]=convierte(palabra[i]);
+ convierte(palabra[i],i);
 }
 
 
