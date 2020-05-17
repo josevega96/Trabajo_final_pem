@@ -5,6 +5,7 @@
 
 int pos_x;
 int pos_y;
+GLboolean modo;
 
 struct mi_letra {
 	 char letra;
@@ -25,11 +26,7 @@ typedef struct abc ABC;
 
 ABC abc_letras[24];
 
-
-
-
  void guarda_letra(){
-
  }
 
 int x=150;
@@ -63,12 +60,49 @@ void circulos(int xt,int num){
   y=y+30;
   }
  }
+
+
+void cuadros(int xt, int num){
+  int y=200,i,j,k;
+  glColor3f(255,0,0);
+  glPointSize(30);
+  for (j = 8; j >= 0; j--)
+  {
+  for ( k = 8; k>= 0; k--)
+  {
+    if (letrasm[num].mat[j][k]==1)
+    {
+      glColor3f(letrasm[num].rgb[0],letrasm[num].rgb[1],letrasm[num].rgb[2]);
+    }
+    else{
+      glColor3f(0,0,0);
+    }
+    
+    glBegin(GL_POINTS);
+    glVertex2i(x, y);
+    x=x+30;  
+    glEnd();
+  }
+  x=xt;
+  y=y+30;
+  }
+  glEnd();
+ }
+
 void dibuja(void) {
   int i,xt=150;
 	glClear(GL_COLOR_BUFFER_BIT);
   for ( i = 0; i < 6; i++)
   {
-   circulos(xt,i);
+   if (modo==1)
+   {
+     cuadros(xt,i);
+   }
+   else
+   {
+    circulos(xt,i);
+   }
+
    xt=x+30*8; 
   }
 	glFlush(); }
@@ -171,13 +205,6 @@ void rastrea(int xpos, int ypos){
 }
 
 
-void cuadros(){
-  glColor3f(255,0,0);
-  glPointSize(100);
-  glBegin(GL_POINTS);
-  glVertex2i(150, 200);
-  glEnd();
- }
  
  void ajusta(int ancho, int alto){    
 	 glClearColor(1.0,1.0,1.0,0.0);    
@@ -224,6 +251,15 @@ void cuadros(){
   letrasm[num].rgb[1]=0;
   letrasm[num].rgb[2]=0;
 
+
+ }
+
+ void teclado(unsigned char letra,int x, int y){
+   if (letra=='b')
+   {
+     modo=GL_TRUE;
+   }
+  glutPostRedisplay(); 
 
  }
  
@@ -293,6 +329,7 @@ glutInitWindowPosition(100, 150);
 glutCreateWindow("Palabra");
 glutReshapeFunc(ajusta);
 glutPassiveMotionFunc(rastrea);
+glutKeyboardFunc(teclado);
 glutDisplayFunc(dibuja);
 glutMainLoop();
 
