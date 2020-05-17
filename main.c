@@ -3,12 +3,13 @@
 #include <math.h>
 #define pi 3.14159265358979323846264338
 
-GLboolean rojo=GL_TRUE;
+int pos_x;
+int pos_y;
 
 struct abc {
 	 char palabra [6];
 	 char letra [8][8];
-	 GLfloat rgb [0][3];
+	 GLfloat rgb[3];
 	 };
 
 typedef struct abc ABC;
@@ -34,7 +35,7 @@ void circulos(int xt,int num){
   {
     if (letrasm[palabral[num]].letra[j][k]==1)
     {
-      glColor3f(255,0,0);
+      glColor3f(letrasm[palabral[num]].rgb[0],letrasm[palabral[num]].rgb[1],letrasm[palabral[num]].rgb[2]);
     }
     else{
       glColor3f(0,0,0);
@@ -52,6 +53,49 @@ void circulos(int xt,int num){
   
   
  }
+void dibuja(void) {
+  int i,xt=150;
+	glClear(GL_COLOR_BUFFER_BIT);
+  for ( i = 0; i < 6; i++)
+  {
+   circulos(xt,i);
+   xt=x+30*8; 
+  }
+	glFlush(); }
+
+void opciones(int opcion){
+  int letra;
+  if (pos_x>=150 && pos_x<=390 )
+  {
+    letra=0;
+  }
+
+  switch (opcion)
+  {
+  case 1:
+    letrasm[palabral[letra]].rgb[0]=0;
+    letrasm[palabral[letra]].rgb[1]=255;
+    letrasm[palabral[letra]].rgb[2]=0;
+    break;
+  
+  default:
+    break;
+  }
+
+  glutPostRedisplay();
+  
+
+
+
+}
+void rastrea(int button, int state, int xpos, int ypos){
+  pos_x=xpos;
+  pos_y=ypos;
+  glutCreateMenu(opciones);
+  glutAddMenuEntry("Verde",1);
+  glutAttachMenu(GLUT_RIGHT_BUTTON);
+}
+
 
 void cuadros(){
   glColor3f(255,0,0);
@@ -67,16 +111,7 @@ void cuadros(){
 	 glLoadIdentity();    
 	 gluOrtho2D(0,1920,0,1080);}
 	 
-void dibuja(void) {
-  int i,xt=150;
-  const GLubyte color[3]={0,255,0};
-	glClear(GL_COLOR_BUFFER_BIT);
-  for ( i = 0; i < 6; i++)
-  {
-   circulos(xt,i);
-   xt=x+30*8; 
-  }
-	glFlush(); }
+
 
  int convierte(char palabra){
      int conversion;
@@ -122,6 +157,7 @@ while (!feof (fp)){
             fscanf (fp, "%d", &i);
           }
         }
+        letrasm[l].rgb[0]=255;
       }
    }
 }
@@ -160,7 +196,8 @@ glutInitWindowSize(1920,1080);
 glutInitWindowPosition(100, 150);    
 glutCreateWindow("Palabra");
 glutReshapeFunc(ajusta);
-glutDisplayFunc(dibuja); 
+glutMouseFunc(rastrea);
+glutDisplayFunc(dibuja);
 glutMainLoop();
 
 
