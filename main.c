@@ -259,6 +259,11 @@ void rastrea(int xpos, int ypos){
    {
      modo=GL_TRUE;
    }
+   if (letra=='c')
+   {
+     modo=GL_FALSE;
+   }
+   
   glutPostRedisplay(); 
 
  }
