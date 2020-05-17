@@ -227,6 +227,83 @@ void rastrea(int xpos, int ypos){
      case 'B':
         conversion=1;
         break;
+      case 'C':
+        conversion=2;
+        break;
+      case 'D':
+       conversion=3;
+       break;
+      case 'E':
+       conversion=4;
+       break;
+      case 'F' :
+       conversion=5;
+       break;
+    case 'G' :
+     conversion=6;
+     break;
+    case 'H' :
+     conversion=7;
+      break;
+    case 'I' :
+     conversion=8;
+     break;
+    case 'J' :
+     conversion=9;
+     break;
+    case 'K' :
+     conversion=10;
+     break;
+    case 'L' :
+     conversion=11;
+     break;
+    case 'M' :
+     conversion=12;
+     break;
+    case 'N' :
+     conversion=13;
+     break;
+    case 'Ñ':
+     conversion=14;
+     break;
+    case 'O' :
+     conversion=15;
+     break;
+    case 'P' :
+     conversion =16;
+     break;
+    case 'Q':
+     conversion=17;
+     break;
+    case 'R':
+     conversion=18;
+     break;
+     case 'S':
+     conversion=19;
+     break;
+     case 'T':
+      conversion=20;
+      break;
+     case 'U':
+      conversion=21;
+      break;
+    case 'V':
+     conversion=22;
+     break;
+    case 'W':
+     conversion=23;
+     break;
+    case 'X':
+     conversion=24;
+     break;
+    case 'Y':
+     conversion=25;
+     break;
+    case 'Z':
+     conversion=26;
+     break;
+
+
      default:
          break;
      }
@@ -330,7 +407,7 @@ int main(int argc, char** argv)
 fscanf (fp, "%d", &i);    
 while (!feof (fp)){
     {  
-    for ( l = 0; l < 2; l++)
+    for ( l = 0; l < 27; l++)
     {
       for ( j = 0; j < 8; j++)
       {
@@ -357,7 +434,7 @@ for ( i = 0; i < 6; i++)
 
 
 /*
- *for ( l = 0; l < 6; l++)
+ *for ( l = 0; l < 10; l++)
 {
 for ( k = 0; k < 8; k++)
 {
