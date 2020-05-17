@@ -1,11 +1,13 @@
 #include <stdio.h> 
 #include <GL/glut.h> 
 #include <math.h>
+#include <unistd.h>
 #define pi 3.14159265358979323846264338
 
 int pos_x;
 int pos_y;
 GLboolean modo;
+GLboolean estado;
 
 struct mi_letra {
 	 char letra;
@@ -254,7 +256,35 @@ void rastrea(int xpos, int ypos){
 
  }
 
+ parpadea(){
+   int i;
+  if (estado==0)
+  {
+   for ( i = 0; i < 6; i++)
+   {
+     letrasm[i].rgb[0]=0;
+     letrasm[i].rgb[1]=0;
+     letrasm[i].rgb[2]=0;
+     estado=1;
+   }
+  }
+  else if (estado==1)
+  {
+   for ( i = 0; i < 6; i++)
+   {
+     letrasm[i].rgb[0]=255;
+     letrasm[i].rgb[1]=0;
+     letrasm[i].rgb[2]=0;
+     estado=0;
+   }
+  }
+   sleep(1);
+   glutPostRedisplay();
+   
+ }
+
  void teclado(unsigned char letra,int x, int y){
+   int i;
    if (letra=='b')
    {
      modo=GL_TRUE;
@@ -263,6 +293,22 @@ void rastrea(int xpos, int ypos){
    {
      modo=GL_FALSE;
    }
+   if (letra=='p')
+   {
+     glutIdleFunc(parpadea);
+   }
+   if (letra=='c')
+   {
+   for ( i = 0; i < 6; i++)
+   {
+     letrasm[i].rgb[0]=255;
+     letrasm[i].rgb[1]=0;
+     letrasm[i].rgb[2]=0;
+     estado=1;
+   }
+     glutIdleFunc(NULL);
+   }
+   
    
   glutPostRedisplay(); 
 
