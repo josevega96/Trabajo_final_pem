@@ -74,20 +74,78 @@ void dibuja(void) {
 	glFlush(); }
 
 void opciones(int opcion){
-  int letra;
+  int letrac;
   if (pos_x>=150 && pos_x<=390 )
   {
-    letra=0;
+    letrac=0;
   }
+  if (pos_x>=391 && pos_x<=630)
+  {
+    letrac=1;
+  }
+  if (pos_x>=631&&pos_x<=870)
+  {
+    letrac=2;
+  }
+  if (pos_x>=871&&pos_x<=1110)
+  {
+    letrac=3;
+  }
+  if (pos_x>=1111&&pos_x<=1350)
+  {
+    letrac=4;
+  }
+  if (pos_x>=1351&&pos_x<=1590)
+  {
+    letrac=5;
+  }
+  
+  
 
   switch (opcion)
   {
   case 1:
-    letrasm[palabral[letra]].rgb[0]=0;
-    letrasm[palabral[letra]].rgb[1]=255;
-    letrasm[palabral[letra]].rgb[2]=0;
+    letrasm[letrac].rgb[0]=0;
+    letrasm[letrac].rgb[1]=255;
+    letrasm[letrac].rgb[2]=0;
     break;
   
+  case 2:
+    letrasm[letrac].rgb[0]=0;
+    letrasm[letrac].rgb[1]=0;
+    letrasm[letrac].rgb[2]=255;
+    break;
+  
+  case 3:
+    letrasm[letrac].rgb[0]=255;
+    letrasm[letrac].rgb[1]=0;
+    letrasm[letrac].rgb[2]=255;
+    break;
+  
+  case 4:
+    letrasm[letrac].rgb[0]=0;
+    letrasm[letrac].rgb[1]=255;
+    letrasm[letrac].rgb[2]=255;
+    break;
+
+  case 5:
+    letrasm[letrac].rgb[0]=255;
+    letrasm[letrac].rgb[1]=255;
+    letrasm[letrac].rgb[2]=0;
+    break;
+  
+  case 6:
+    letrasm[letrac].rgb[0]=255;
+    letrasm[letrac].rgb[1]=0;
+    letrasm[letrac].rgb[2]=0;
+    break;
+
+  case 7:
+    letrasm[letrac].rgb[0]=255;
+    letrasm[letrac].rgb[1]=255;
+    letrasm[letrac].rgb[2]=255;
+    break;
+
   default:
     break;
   }
@@ -98,11 +156,17 @@ void opciones(int opcion){
 
 
 }
-void rastrea(int button, int state, int xpos, int ypos){
+void rastrea(int xpos, int ypos){
   pos_x=xpos;
   pos_y=ypos;
   glutCreateMenu(opciones);
   glutAddMenuEntry("Verde",1);
+  glutAddMenuEntry("Azul",2);
+  glutAddMenuEntry("Morado",3);
+  glutAddMenuEntry("cyan",4);
+  glutAddMenuEntry("amarillo",5);
+  glutAddMenuEntry("rojo",6);
+  glutAddMenuEntry("blanco",7);
   glutAttachMenu(GLUT_RIGHT_BUTTON);
 }
 
@@ -228,7 +292,7 @@ glutInitWindowSize(1920,1080);
 glutInitWindowPosition(100, 150);    
 glutCreateWindow("Palabra");
 glutReshapeFunc(ajusta);
-glutMouseFunc(rastrea);
+glutPassiveMotionFunc(rastrea);
 glutDisplayFunc(dibuja);
 glutMainLoop();
 
